@@ -16,28 +16,22 @@ config :markdown_editor, MarkdownEditorWeb.Endpoint,
     layout: false
   ],
   pubsub_server: MarkdownEditor.PubSub,
-  live_view: [signing_salt: "YEvkivkS"]
+  live_view: [signing_salt: "YEvkivkS"],
+  secret_key_base: "your-secret-key-here"  # Generate with: mix phx.gen.secret
 
 # Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
 config :markdown_editor, MarkdownEditor.Mailer, adapter: Swoosh.Adapters.Local
 
-# Configure esbuild (the version is required)
+# Configure esbuild
 config :esbuild,
   version: "0.17.11",
-  markdown_editor: [
-    args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+  default: [
+    args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:clipboard),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure tailwind (the version is required)
+# Configure tailwind
 config :tailwind,
   version: "3.4.3",
   markdown_editor: [
@@ -57,6 +51,5 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
+# Import environment specific config
 import_config "#{config_env()}.exs"
