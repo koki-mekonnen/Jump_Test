@@ -30,7 +30,7 @@ config :markdown_editor, MarkdownEditor.Mailer, adapter: Swoosh.Adapters.Local
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  default: [
+  markdown_editor: [
     args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:clipboard),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
