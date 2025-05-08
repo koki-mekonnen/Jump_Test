@@ -6,8 +6,12 @@ defmodule MarkdownEditorWeb.EditorLive do
     {:ok, assign(socket, control_codes: "")}
   end
 
+  def handle_event("update_input", %{"control_codes" => control_codes}, socket) do
+    # Update the control_codes assign in the socket whenever input changes
+    {:noreply, assign(socket, control_codes: control_codes)}
+  end
+
   def handle_event("update_control_codes", %{"value" => value}, socket) do
     {:noreply, assign(socket, control_codes: value)}
   end
 end
-
