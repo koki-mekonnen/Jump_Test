@@ -1,15 +1,20 @@
 <div class="container">
+<label class="font-bold pb-3">Add Your Text Here </label>
+<div>
 <input type="text" id="control_codes" value={@control_codes} />
-
-
-
 <button phx-click={JS.dispatch("phx:copy", to: "#control_codes")}>  
   📋
 </button>
 
-
+<button phx-click={JS.dispatch("phx:export", to: "#control_codes")}>
+⬇️
+</button>
+</div>
 
 
 
 
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

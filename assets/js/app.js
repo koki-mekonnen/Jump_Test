@@ -49,3 +49,13 @@ window.addEventListener("phx:copy", (event) => {
     console.log("All done!"); // Or a nice tooltip or something.
   })
 })
+
+window.addEventListener("phx:export", (event) => {
+  const { jsPDF } = window.jspdf;
+  let text = event.target.value; // Or use .value for inputs
+  let filename = event.target.dataset.filename || "file.pdf";
+
+  const doc = new jsPDF();
+  doc.text(text, 10, 10);
+  doc.save(filename);
+});

@@ -10,3 +10,4 @@ defmodule MarkdownEditorWeb.EditorLive do
     {:noreply, assign(socket, control_codes: value)}
   end
 end
+
