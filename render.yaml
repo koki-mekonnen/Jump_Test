@@ -1,0 +1,20 @@
+# Main Render configuration
+services:
+  - type: web
+    name: markdown_editor
+    runtime: docker
+    region: oregon  # or any preferred region (us-east, singapore, etc.)
+    env: docker
+    plan: free  # or "starter" for paid tier
+    buildCommand: mix deps.get && cd assets && npm install && cd .. && mix assets.deploy && mix compile
+    startCommand: mix phx.server
+    envVars:
+      - key: MIX_ENV
+        value: prod
+      - key: PORT
+        value: 4000
+      - key: SECRET_KEY_BASE
+        generateValue: true
+     
+    healthCheckPath: /healthz
+
