@@ -1,19 +1,26 @@
 # Main Render configuration
 services:
   - type: web
-    name: markdown_editor
+    name: phoenix-liveview-app
     runtime: docker
-    region: oregon  # or any preferred region (us-east, singapore, etc.)
-    env: docker
+    region: oregon  # or any preferred region
     plan: free  # or "starter" for paid tier
-    buildCommand: mix deps.get && cd assets && npm install && cd .. && mix assets.deploy && mix compile
-    startCommand: mix phx.server
+    env: docker
+    buildCommand: |
+      mix deps.get
+      cd assets 
+      npm install 
+      cd ..
+      mix assets.deploy
+      mix compile
     envVars:
       - key: MIX_ENV
         value: prod
       - key: PORT
         value: 4000
       - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: LIVE_VIEW_SIGNING_SALT
         generateValue: true
      
     healthCheckPath: /healthz
